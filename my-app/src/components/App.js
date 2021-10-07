@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import Web3 from 'web3';
-import '../App.css';
-import Slimes from '../abis/Slime.json';
-import ReactDOM from 'react-dom';
-import io from 'socket.io-client';
+import React, { Component } from 'react'
+import Web3 from 'web3'
+import '../App.css'
+import Slimes from '../abis/Slime.json'
+import ReactDOM from 'react-dom'
+import io from 'socket.io-client'
 import Game from './Game'
+import Sidebar from './Sidebar'
+import { Tab, Nav } from 'react-bootstrap';
 
 //import clientGame from './public/client.js'
 
@@ -122,15 +124,8 @@ class App extends Component {
 
     return (
       <div>
+        <Sidebar account = {this.state.account} contract = {this.state.contract}/>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.dappuniversity.com/bootcamp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Color Tokens
-          </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
               <small className="text-white"><span id="account">{this.state.account}</span></small>
@@ -141,10 +136,9 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <h1>Issue Token</h1>
+                <h1>MINT YELLOW</h1>
                 <form onSubmit={(event) => {
-                  event.preventDefault()
-                  //const color = this.color.value
+                  event.preventDefault()//no idea what this does
                   this.mint()
                 }}>
                   <input
@@ -169,9 +163,9 @@ class App extends Component {
             </main>
           </div>
           <hr/>
-           <Game account = {this.state.account} contract = {this.state.contract}/>
         </div>
       </div>
+
 
     );
   }

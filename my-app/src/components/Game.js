@@ -30,18 +30,18 @@ class Board extends React.Component {
   async checkBalance(){
     //console.log(this.state.account);
     const balance = await this.props.contract.methods.balanceOf(this.props.account).call();
-    //console.log(balance);
-    let tokId;
-    for(let i = 0; i<balance; i++){
-      tokId = await this.props.contract.methods.tokenOfOwnerByIndex(this.props.account, i).call();
-      console.log(tokId);
+    if(balance >= 1){
+      let tokId;
+      for(let i = 0; i<balance; i++){
+        tokId = await this.props.contract.methods.tokenOfOwnerByIndex(this.props.account, i).call();
+      }
+      await this.props.contract.methods.safeTransferFrom(this.props.account, '0x000000000000000000000000000000000000dEaD', tokId).send({ from: this.props.account});
+      return true;
     }
-    console.log(this.props.account);
-    let ownerOfToken = await this.props.contract.methods.ownerOf(tokId)
-    console.log('owner is ' + ownerOfToken);
-    //await this.props.contract.methods.approve('0x000000000000000000000000000000000000dEaD', tokId);
-    await this.props.contract.methods.safeTransferFrom(this.props.account, '0x000000000000000000000000000000000000dEaD', tokId).send({ from: this.props.account}); //leftoooooooooooooffffffffffffffffffff
-    //await this.props.contract.methods.transfer(this.props.account, '0x000000000000000000000000000000000000dEaD', tokId);
+    else{
+      return false;
+    }
+
     if(balance < 5){
       window.alert('You need at least 10 slimes to play a token');
       return false;
@@ -58,9 +58,12 @@ class Board extends React.Component {
       if(sufficientBalance){
         squares[i] = 'O';
       }
+      else{
+        window.alert('Insufficient SL Tokens!')
+      }
     }
     else{
-      window.alert('A slime has already been played in this square!');
+      window.alert('A token has already been played in this square!');
     }
     this.setState({squares: squares});
   }
