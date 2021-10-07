@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import Web3 from 'web3'
-import './App.css';
-import Slimes from './abis/Slime.json'
+import Web3 from 'web3';
+import '../App.css';
+import Slimes from '../abis/Slime.json';
 import ReactDOM from 'react-dom';
+import io from 'socket.io-client';
+import Game from './Game'
+
+//import clientGame from './public/client.js'
+
+var socket;
 
 class App extends Component {
+
   /*
   constructor(props){
     super(props);
@@ -18,6 +25,14 @@ class App extends Component {
   async componentDidMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
+
+    socket = io.connect('http://localhost:5000');
+    socket.on('connectionReceived', this.connectionReceivedAtServer);
+  }
+
+  connectionReceivedAtServer(data){
+      console.log('connection received at server');
+      socket.emit('send-message', 'hi from client');
   }
 
   async loadWeb3() {
@@ -47,7 +62,14 @@ class App extends Component {
       const address = networkData.address
       const contract = new web3.eth.Contract(abi, address)
       this.setState({ contract })
+
       const totalSupply = await contract.methods.totalSupply().call()
+
+      //new stuff 10-1
+      const connectedAccountsBalance = await contract.methods.balanceOf(accounts[0]).call()
+
+
+
       this.setState({ totalSupply })
       /*
       // Load Colors
@@ -61,6 +83,20 @@ class App extends Component {
       window.alert('Smart contract not deployed to detected network.')
     }
   }
+
+  async checkBalance(){
+    //console.log(this.state.account);
+    const balance = await this.state.contract.methods.balanceOf(this.state.account).call();
+    //console.log(balance);
+    if(balance < 5){
+      window.alert('You need at least 5 slimes to activate lasers');
+    }
+    else{
+      window.alert('pew pew');
+    }
+
+  }
+
 
   mint = () => {
     this.state.contract.methods.mintSlime(1).send({ from: this.state.account, value: '10000000000000001' })/*
@@ -82,8 +118,9 @@ class App extends Component {
   }
 
   render() {
-    return (
 
+
+    return (
       <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
           <a
@@ -122,22 +159,20 @@ class App extends Component {
                     value='MINT'
                   />
                 </form>
+                <button onClick={() => this.checkBalance()}>
+                  Activate Lasers
+                </button>
+                <button>
+                  Send To Socket
+                </button>
               </div>
             </main>
           </div>
           <hr/>
-          <div className="row text-center">
-            { this.state.colors.map((color, key) => {
-              return(
-                <div key={key} className="col-md-3 mb-3">
-                  <div className="token" style={{ backgroundColor: color }}></div>
-                  <div>{color}</div>
-                </div>
-              )
-            })}
-          </div>
+           <Game account = {this.state.account} contract = {this.state.contract}/>
         </div>
       </div>
+
     );
   }
 }
