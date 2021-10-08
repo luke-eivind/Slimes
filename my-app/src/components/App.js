@@ -14,14 +14,6 @@ var socket;
 
 class App extends Component {
 
-  /*
-  constructor(props){
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-*/
 
 //componentWillMount is outdated and shouldn't be used anymore. replaced with componentDidMount()
   async componentDidMount() {
@@ -66,10 +58,7 @@ class App extends Component {
       this.setState({ contract })
 
       const totalSupply = await contract.methods.totalSupply().call()
-
-      //new stuff 10-1
       const connectedAccountsBalance = await contract.methods.balanceOf(accounts[0]).call()
-
 
 
       this.setState({ totalSupply })
@@ -120,11 +109,8 @@ class App extends Component {
   }
 
   render() {
-
-
     return (
       <div>
-        <Sidebar account = {this.state.account} contract = {this.state.contract}/>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -163,6 +149,7 @@ class App extends Component {
             </main>
           </div>
           <hr/>
+          <Game  account = {this.state.account} contract = {this.state.contract}/>
         </div>
       </div>
 
@@ -171,11 +158,4 @@ class App extends Component {
   }
 }
 
-
-/*
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
-*/
 export default App;
