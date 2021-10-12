@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 import Game from './Game'
 import Sidebar from './Sidebar'
-import { Tab, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Button, Tab, Nav } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import clientGame from './public/client.js'
 
@@ -118,39 +119,85 @@ class App extends Component {
             </li>
           </ul>
         </nav>
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                <h1>MINT YELLOW</h1>
-                <form onSubmit={(event) => {
-                  event.preventDefault()//no idea what this does
-                  this.mint()
-                }}>
-                  <input
-                    type='text'
-                    className='form-control mb-1'
-                    placeholder='e.g. #FFFFFF'
-                    ref={(input) => { this.color = input }}
-                  />
-                  <input
-                    type='submit'
-                    className='btn btn-block btn-primary'
-                    value='MINT'
-                  />
-                </form>
-                <button onClick={() => this.checkBalance()}>
-                  Activate Lasers
-                </button>
-                <button>
-                  Send To Socket
-                </button>
+        <Container fluid>
+          <Row>
+            <Col>
+              <div className="row yellow-heading-row">
+                <main role="main" className="col-lg-12 d-flex text-center">
+                  <div className="content mr-auto ml-auto">
+                    <h1 className="h1 text-left yellow-h1">MINT A YELLOW GAME PIECE</h1>
+                    {/*<form onSubmit={(event) => {
+                      event.preventDefault()//no idea what this does
+                      this.mint()
+                    }}>
+                      <input
+                        type='text'
+                        className='form-control mb-1'
+                        placeholder='e.g. #FFFFFF'
+                        ref={(input) => { this.color = input }}
+                      />*/}
+
+                      <p>The color of happiness and optimism. Yellow is a cheerful and energetic color that brings fun and joy to the world. It makes learning easier as it affects the logical part of the brain, stimulating mentality and perception. It inspires thought and curiosity and boosts enthusiasm and confidence.</p>
+                      <button
+                        className="btn btn-dark"
+                        onClick={() => this.mint()}
+                        value='MINT'
+                      >
+                        MINT
+                      </button>
+                    {/*}</form>
+                    <button onClick={() => this.checkBalance()}>
+                      Activate Lasers
+                    </button>
+                    <button>
+                      Send To Socket
+                    </button>*/}
+                  </div>
+                </main>
               </div>
-            </main>
-          </div>
-          <hr/>
-          <Game  account = {this.state.account} contract = {this.state.contract}/>
+            </Col>
+            <Col>
+              <div className="row blue-heading-row">
+                <main role="main" className="col-lg-12 d-flex text-center">
+                  <div className="content mr-auto ml-auto">
+                    <h1 className="h1 text-left yellow-h1">MINT A BLUE GAME PIECE</h1>
+                    {/*<form onSubmit={(event) => {
+                      event.preventDefault()//no idea what this does
+                      this.mint()
+                    }}>
+                      <input
+                        type='text'
+                        className='form-control mb-1'
+                        placeholder='e.g. #FFFFFF'
+                        ref={(input) => { this.color = input }}
+                      />*/}
+
+                      <p>The color of trust and loyalty. Blue has a calming and relaxing effect on our psyche, that gives us peace and makes us feel confident and secure. It dislikes confrontation and too much attention, but it is an honest, reliable and responsible color and you can always count on its support.</p>
+                      <button
+                        className="btn btn-dark"
+                        onClick={() => this.mint()}
+                        value='MINT'
+                      >
+                        MINT
+                      </button>
+                    {/*}</form>
+                    <button onClick={() => this.checkBalance()}>
+                      Activate Lasers
+                    </button>
+                    <button>
+                      Send To Socket
+                    </button>*/}
+                  </div>
+                </main>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <hr/>
+        <div className="text-left">
+        <h1>ahaha</h1>
         </div>
+        <Game  account = {this.state.account} contract = {this.state.contract}/>
       </div>
 
 
