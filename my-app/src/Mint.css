@@ -29,15 +29,10 @@
 
 .yellow-heading-row{
   background-color: #FFF94F;
-  height: 250px;
+  height: 500px;
 }
 
 .blue-heading-row{
-  background-color: #105CFF;
-  height: 250px;
-}
-
-.yellow-h1{
-  display: inline-block;
-  text-align: left;
+  background-color: #5AB1D8;
+  height: 500px;
 }

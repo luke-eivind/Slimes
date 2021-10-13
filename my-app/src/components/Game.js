@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import '../App.css'; //don't think app.css is needed here
 import '../Game.css';
 import ReactDOM from 'react-dom';
 
@@ -78,7 +77,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'SLIMEBALL';
+    const status = 'PLAY THE GAME';
 
     return (
       <div>
